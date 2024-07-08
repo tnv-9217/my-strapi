@@ -16,12 +16,12 @@ resource "aws_ecs_task_definition" "strapi_task" {
   network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
-  execution_role_arn       = "arn:aws:iam::533266978173:role/ecsTaskExecutionRole"  # Specify your existing role ARN
+  execution_role_arn       = "arn:aws:iam::*******78173:role/ecsTaskExecutionRole"  # Specify your existing role ARN
 
   container_definitions = jsonencode([
     {
       name      = "strapi"
-      image     = "533266978173.dkr.ecr.us-east-1.amazonaws.com/strapi-repo-tnv:latest"
+      image     = "*******78173.dkr.ecr.us-east-1.amazonaws.com/strapi-repo-tnv:latest"
       essential = true
       portMappings = [
         {
@@ -45,7 +45,7 @@ resource "aws_ecs_service" "strapi_service" {
   }
 
   network_configuration {
-    subnets         = ["subnet-004bb278a8a85c977"]  # Specify your subnet IDs
+    subnets         = ["subnet-004bb278********"]  # Specify your subnet IDs
     security_groups = [aws_security_group.strapi_sg.id]
     assign_public_ip = true
   }
@@ -54,7 +54,7 @@ resource "aws_ecs_service" "strapi_service" {
 resource "aws_security_group" "strapi_sg" {
   name        = "strapi-image-sg"
   description = "Allow HTTP traffic"
-  vpc_id      = "vpc-0c04e74d8d65dd8a9"  # Specify your VPC ID
+  vpc_id      = "vpc-0c04e74d******"  # Specify your VPC ID
 
   ingress {
     from_port   = 1337
@@ -72,7 +72,7 @@ resource "aws_security_group" "strapi_sg" {
 }
 
 resource "aws_route53_record" "strapi_record" {
-  zone_id = "Z06607023RJWXGXD2ZL6M"  # Specify your hosted zone ID
+  zone_id = "Z0660702********"  # Specify your hosted zone ID
   name    = "tnv.contentecho.in"
   type    = "A"
   ttl     = 300
